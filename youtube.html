@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Secure YouTube Embed</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <style type="text/css">
+            #progress {
+                display: inline-block;
+                width: 650px;
+                margin-left: 10px;
+                background: silver;
+                height: 12px;
+            }
+            
+            #bar {
+                height: 12px;
+                width: 0%;
+                background: darkblue;
+            }
+        </style>
+    </head>
+    <body>
+        <h1><code>Secure YouTube Embed</code></h1>
+
+        <script src="bower_components/okrajs/okra.js"></script>
+
+        <iframe name="www.videosforyou.in" width="720" height="405"
+                src="http://www.videosforyou.in/youtube-video.html"></iframe>
+                
+        <div style="padding-bottom: 3em;">
+            <button id="play-btn">▶ Play</button>
+            
+            <div id="progress">
+                <div id="bar"></div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            ;(function () {
+                'use strict';
+                /* global Okra, document */
+                var playBtn = document.getElementById('play-btn');
+                var isPlaying = false;
+                
+                var bar = document.getElementById('bar');
+                
+                var video = Okra.inlet(
+                    'www.videosforyou.in', 
+                    'http://www.videosforyou.in'
+                );
+                
+                playBtn.onclick = function () {
+                    if (isPlaying) {
+                        video.call('stop');
+                    } else {
+                        video.call('play');
+                    }
+
+                    isPlaying = !isPlaying;
+                    playBtn.innerHTML = isPlaying ? '◼ Stop' : '▶ Play';
+                };
+                
+                video.on('currentTimeChanged', function (data) {
+                    video.get('duration', function (duration) {
+                        var percent = data.currentTime / duration;
+                        bar.style.width = (percent * 100) + '%';
+                    });
+                });
+            }());
+        </script>
+    </body>
+</html>
+
