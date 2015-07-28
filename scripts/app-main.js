@@ -5,7 +5,7 @@
 
     Okra.provide('get', 'title', function () {
         return document.title;
-    }).allow('http://www.anayltics.work');
+    }).allow('https://www.anayltics.work');
     
     
     var playBtn = document.getElementById('play-btn');
@@ -16,7 +16,7 @@
     
     var video = Okra.inlet(
         'videoprovider', 
-        'http://www.videosforyou.in'
+        'https://www.videosforyou.in'
     );
     
     playBtn.onclick = function () {
@@ -39,7 +39,7 @@
     
         var likeButton = Okra.inlet(
         'socialbuttons', 
-        'http://www.socialnetwork1.eu'
+        'https://www.socialnetwork1.eu'
     );
     
     var updateLikeCallToAction = function (isLiked) {
